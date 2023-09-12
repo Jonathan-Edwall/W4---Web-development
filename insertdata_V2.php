@@ -14,7 +14,6 @@ if (mysqli_connect_error()) {
 }
 
 // Fetch data from POST request
-$id = $_POST['id'];
 $mname = $_POST['mname'];
 $myear = $_POST['myear'];
 $mgenreid = $_POST['mgenreid'];
