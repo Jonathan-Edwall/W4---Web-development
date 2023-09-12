@@ -1,6 +1,6 @@
 
 <?php
 $scnd_word = " world" ;
-echo "hello". $scnd_word ;
+echo "hell0000". $scnd_word ;
 
 ?>

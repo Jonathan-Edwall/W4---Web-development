@@ -1,5 +1,4 @@
 <?php
-phpinfo();
 // Database connection parameters
 $servername = "localhost";
 $username = "root";
@@ -16,7 +15,6 @@ if (mysqli_connect_error()) {
 
 // Fetch data from POST request
 $id = $_POST['id'];
-
 $mname = $_POST['mname'];
 $myear = $_POST['myear'];
 $mgenreid = $_POST['mgenreid'];
@@ -28,12 +26,28 @@ if ($mrating  <=5 and $mrating  >=1 ) {
     die("Error: " . $mrating . " not in range 1-5. Try again." ); // bad way of solving?
 } 
 
-$namelist= $link->query("SELECT movies.mname FROM movies");
+$sql_duplicate_check = "SELECT movies.mname FROM movies";
 
-//no double 
-if (in_array($mname,$namelist)) {
-    die("Error: " . $mname . " already in database!"); // Corrected comment
+$namelist = $link->query($sql_duplicate_check);
+
+
+
+// Check for duplicate entries
+$isDuplicate = false;
+while ($row = $namelist->fetch_assoc()) {
+    if ($row['mname'] === $mname) {
+        $isDuplicate = true;
+        break;
+    }
 }
+
+if ($isDuplicate) {
+    die("Error: " . $mname . " already in database!");
+}
+
+
+
+
 
 
 
@@ -43,7 +57,7 @@ if (in_array($mname,$namelist)) {
 $sql = "INSERT INTO movies(mname, myear, mrating, mgenreid) VALUES (?, ?, ?, ?)"; 
 $stmt = $link->prepare($sql); // Prepare: prepare user input in a way that u cannot delete for instance the database --- ITS A SECURITY MEASURE
 // s for string
-$stmt->bind_param("ssis", $mname,$myear,$mrating,$mgenreid); // all s?
+$stmt->bind_param("ssii", $mname,$myear,$mrating,$mgenreid); // all s?
 $result = $stmt->execute();
 
 

@@ -4,7 +4,7 @@ CREATE TABLE movies (
     myear VARCHAR(4),
     mgenreid INT,
     FOREIGN KEY (mgenreid) REFERENCES genres(gid),
-    mrating INT CHECK (mrating >= 1 AND mrating =<5) 
+    mrating INT  
 );
 
 

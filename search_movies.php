@@ -7,7 +7,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$dbname = "things";
+$dbname = "movie_database";
 $search_query = $_POST['search_query']; // get query from somewhere
 
 // Create connection
