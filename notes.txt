@@ -1,0 +1,50 @@
+trycker på knapp så kommer det en länk till nästa sida 
+sök efter substräng.  
+contains
+
+
+<form action="search_movies.php" method="POST"></form>
+    Search:<input type="text" name="query">
+    <input type="submit" value="Go">
+    
+</form>
+
+
+
+<form action="insertdata.php" method="POST">
+    Name:<input type="text" name="mname"><br>
+    Year:<input type="text" name="myear"><br>
+    
+    Genre:
+    <select id="mgenre" name="mgenre"> <!-- bas för php -->
+        <option value="act_adv">Action/Adventure</option>
+        <option value="com">Comedy</option>
+        <option value="drama">Drama</option>
+        <option value="fant">Fantasy/Sci-Fi</option>
+    </select><br>
+    
+    Rating:<input type="number" name="mrating"><br>
+    <input type="submit" value="Add">
+</form>
+
+
+
+<!-- Vi ska ta unique value på mgenre från genres table -->
+
+
+
+// genres
+$sql_g = "INSERT INTO genres (mgenre) VALUES (?)"; 
+$stmt_g = $link->prepare($sql_g);
+// s for string
+$stmt_g->bind_param("s", $mgenre);
+$result_g = $stmt_g->execute();
+
+
+
+//SELECT movies.mname,movies.myear,genres.mgenre,movies.mrating 
+
+//SELECT movies.mname,movies.myear, movies.mrating, genres.mgenre
+FROM movies
+LEFT JOIN genres 
+ON movies.mgenreid = genres.gid
