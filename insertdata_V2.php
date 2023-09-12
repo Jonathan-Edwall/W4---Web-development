@@ -56,7 +56,7 @@ if ($isDuplicate) {
 $sql = "INSERT INTO movies(mname, myear, mrating, mgenreid) VALUES (?, ?, ?, ?)"; 
 $stmt = $link->prepare($sql); // Prepare: prepare user input in a way that u cannot delete for instance the database --- ITS A SECURITY MEASURE
 // s for string
-$stmt->bind_param("ssii", $mname,$myear,$mrating,$mgenreid); // all s?
+$stmt->bind_param("ssis", $mname,$myear,$mrating,$mgenreid); // all s?
 $result = $stmt->execute();
 
 
